@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'phonenumber_field',
 
     'property.apps.PropertyConfig',
 ]
@@ -94,6 +95,8 @@ THOUSAND_SEPARATOR = '&nbsp;'
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
 DATABASES = {
     'default': dj_database_url.parse(

@@ -4,16 +4,17 @@ from django.db import migrations
 import phonenumbers
 
 def convert_phonenumbers(apps, schema_editor):
-
     Flat = apps.get_model('property', 'Flat',)
-    for flat in Flat.objects.all():
-        number = phonenumbers.parse(flat.owners_phonenumber, "RU")
-        flat.owner_pure_phone = None
-        if phonenumbers.is_valid_number(number):
-            flat.owner_pure_phone = phonenumbers.format_number(
-                number, phonenumbers.PhoneNumberFormat.E164
-            )
-        flat.save()
+    flat_set = Flat.objects.all()
+    if flat_set.exists():
+        for flat in flat_set.iterator():
+            number = phonenumbers.parse(flat.owners_phonenumber, "RU")
+            flat.owner_pure_phone = None
+            if phonenumbers.is_valid_number(number):
+                flat.owner_pure_phone = phonenumbers.format_number(
+                    number, phonenumbers.PhoneNumberFormat.E164
+                )
+            flat.save()
 
 class Migration(migrations.Migration):
 
